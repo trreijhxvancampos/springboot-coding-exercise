@@ -21,7 +21,5 @@ public class AuthorEntity {
     @Column
     private String name;
 
-
-
 }
 
