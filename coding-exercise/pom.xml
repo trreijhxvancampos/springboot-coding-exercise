@@ -49,7 +49,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>twist.resources.codingexercise.CodingExerciseApplication</mainClass>
+<!--					<mainClass>twist.resources.codingexercise.CodingExerciseApplication</mainClass>-->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
