@@ -10,6 +10,7 @@ import twist.resources.codingexercise.repository.AuthorRepository;
 import twist.resources.codingexercise.repository.BookRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -48,24 +49,47 @@ public class BookService {
 
     }
 
-    public void save(BookEntity book) {
-//        AuthorEntity authorEntity = authorRepository.findById(book);
+    public void createBook(Map<String, Object> book) {
+        String bookName = (String) book.get("name");
+        Integer authorId = (Integer) book.get("author_id");
 
-//        BookEntity bookEntity = BookEntity.builder()
-//                .id(bookId)
-//                .name(name)
-//                .author(authorEntity)
-//                .build();
+        Optional<AuthorEntity> author = authorRepository.findById(authorId);
+        if (author.isPresent()){
+            BookEntity newBook = BookEntity.builder()
+                    .name(bookName)
+                    .author(AuthorEntity.builder()
+                            .id(author.get().getId())
+                            .name(author.get().getName())
+                            .build())
+                    .build();
 
-        bookRepository.save(book);
+            bookRepository.save(newBook);
+        }
+
     }
+    public void updateBook(Integer bookId, Map<String, Object> bookDetails) {
+        String bookName = (String) bookDetails.get("name");
+        Integer authorId = (Integer) bookDetails.get("author_id");
 
+        Optional<AuthorEntity> author = authorRepository.findById(authorId);
+        Optional<BookEntity> oldBook = bookRepository.findById(bookId);
+        if (oldBook.isPresent() && author.isPresent()){
+            BookEntity updatedBook = oldBook.get();
+            updatedBook.setName(bookName);
+            updatedBook.setAuthor(AuthorEntity.builder()
+                    .id(author.get().getId())
+                    .name(author.get().getName())
+                    .build());
+
+            bookRepository.save(updatedBook);
+        }
+
+    }
     public void deleteById(Integer bookId) {
         bookRepository.deleteById(bookId);
 
     }
 
-    public Optional<BookEntity> findById(Integer bookId) {
-        return bookRepository.findById(bookId);
-    }
+
+
 }

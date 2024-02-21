@@ -7,6 +7,7 @@ import twist.resources.codingexercise.model.Book;
 import twist.resources.codingexercise.service.BookService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class BookController {
     private final BookService bookService;
 
     //    @GetMapping("/books")
-    @GetMapping("/booksNotAnymore")
+    @GetMapping("/books")
     public List<Book> getBooks() {
         return bookService.getBooks();
 
@@ -29,19 +30,18 @@ public class BookController {
 
 
     @PostMapping(value = "/createBook")
-    public void createBook(@RequestBody BookEntity book) {
-        bookService.save(book);
+    public void createBook(@RequestBody Map<String, Object> book) {
+        bookService.createBook(book);
     }
 
-    @PostMapping(value="/updateBook/{bookId}")
-    public void updateBook(@PathVariable Integer bookId, @RequestBody Book book){
+    @PutMapping(value="/updateBook/{bookId}")
+    public void updateBook(@PathVariable Integer bookId, @RequestBody Map<String, Object> book){
+        bookService.updateBook(bookId, book);
+
     }
     @DeleteMapping(value = "/deleteBook/{bookId}")
     public void deleteBookById(@PathVariable Integer bookId) {
         bookService.deleteById(bookId);
     }
 
-    public Optional<BookEntity> findBookById(Integer bookId) {
-        return bookService.findById(bookId);
-    }
 }
