@@ -52,7 +52,20 @@ public class BookServiceTest {
     }
 
     @Test
-    void getBooksByName_ShouldReturn_AllBooksWithSpecifiedName(){
+    void getBooksByName_ShouldReturn_AllBooksWithSpecifiedName() {
+        when(bookRepository.findByName("Adventures of John Doe")).thenReturn(List.of(
+                BookEntity.builder()
+                        .id(1)
+                        .name("Adventures of John Doe")
+                        .author(AuthorEntity.builder()
+                                .id(1)
+                                .name("John Doe")
+                                .build())
+                        .build()
+                )
+
+        );
+
         assertThat(bookService.getBooksByName("Adventures of John Doe"))
                 .contains(Book.builder()
                         .id(1)
