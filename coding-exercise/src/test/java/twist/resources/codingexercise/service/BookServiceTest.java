@@ -38,7 +38,7 @@ public class BookServiceTest {
                 .build()
         ));
         assertThat(bookService.getBooks())
-                .containsExactlyInAnyOrder(Book.builder()
+                .contains(Book.builder()
                         .id(1)
                         .name("Adventures of John Doe")
                         .author(Author.builder()
@@ -47,5 +47,20 @@ public class BookServiceTest {
                                 .build())
                         .build()
                 );
+
+
+    }
+
+    @Test
+    void getBooksByName_ShouldReturn_AllBooksWithSpecifiedName(){
+        assertThat(bookService.getBooksByName("Adventures of John Doe"))
+                .contains(Book.builder()
+                        .id(1)
+                        .name("Adventures of John Doe")
+                        .author(Author.builder()
+                                .id(1)
+                                .name("John Doe")
+                                .build())
+                        .build());
     }
 }

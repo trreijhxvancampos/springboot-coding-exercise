@@ -7,7 +7,9 @@ import twist.resources.codingexercise.model.Author;
 import twist.resources.codingexercise.model.Book;
 import twist.resources.codingexercise.service.BookService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,7 +35,7 @@ public class BookControllerTest {
     }
 
     @Test
-    void getBooks_BookName_ReturnBooksWithSpecifiedName(){
+    void getBooks_ByName_ReturnBooksWithSpecifiedName(){
         assertThat(bookController.getBooksByName("Adventures of John Doe"))
                 .contains(Book.builder()
                         .id(1)
@@ -44,30 +46,5 @@ public class BookControllerTest {
                                 .build())
                         .build());
     }
-
-//    @Test
-//    void createBook_BookProperties_CreatedBook(){
-//        String bookName = "SampleBook";
-//        Integer authorId = 1;
-//        bookController.createBook(bookName, authorId);
-//
-//        List<Book> books = bookController.getBooksByName(bookName);
-//        assertThat(books).isNotEmpty();
-//
-//        Book createdBook = books.get(0);
-//        assertThat(createdBook.getName()).isEqualTo(bookName);
-//        assertThat(createdBook.getAuthor().getId()).isEqualTo(authorId);
-//    }
-
-//    @Test
-//    void deleteBook_BookId_DeletedBook(){
-//        Integer bookId = 69;
-//        String bookName = "SampleBook";
-//        Integer authorId = 1;
-//
-//        bookController.createBook(bookId, bookName, authorId);
-//        bookController.deleteBookById(bookId);
-//        assertThat(bookController.findBookById(bookId)).isNull();
-//    }
 
 }

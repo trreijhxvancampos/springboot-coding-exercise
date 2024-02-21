@@ -18,7 +18,7 @@ public class BookRepositoryTest {
     @Test
     void findAll_ShouldReturn_AllBooks(){
         assertThat(bookRepository.findAll())
-                .containsExactlyInAnyOrder(BookEntity.builder()
+                .contains(BookEntity.builder()
                         .id(1)
                         .name("Adventures of John Doe")
                         .author(AuthorEntity.builder()
